@@ -947,6 +947,7 @@ ASALocalRun/
 freeze/
 midas/
 local_example/
+local_project/
 
 *._ls
 *.prj
