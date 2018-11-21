@@ -149,7 +149,9 @@
 )
 
 ;====================这里是主程序，最终应该改为封装的独立命令=======================================
+(prinl "导入MGT文件命令：drmgt")
 
+(defun C:drmgt ()
 
 (setq
   file1	(open (getfiled "请选择需要打开的MGT文件" "e:\\" "mgt" 0) "r")
@@ -237,4 +239,4 @@
 (close file1)
 (print "close the file")
 
-
+)
