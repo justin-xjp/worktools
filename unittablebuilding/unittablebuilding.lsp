@@ -14,7 +14,7 @@
 	(setvar "osmode" 0)
 ;;;变量声明初始化
 	(setq ssl (ssadd))
-	(setq ttl (ssadd))文字选择集
+	(setq ttl (ssadd));文字选择集
 	(setq ssmax 0)
 	(setq n 0)
 	(setq elname nil)
