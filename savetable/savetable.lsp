@@ -64,7 +64,7 @@
 	(progn
 ;|
 	  (setq m 4)
-	  (setq p1 (reverse (entget e)));得到图元具体信息，并倒序
+	  (setq p1 (reverse (entget e)));得到图元具体信息，并倒序.倒序是为了保证取到的信息是点的自信息内的。
 	  (while (> m 0)
 	    (setq p1 (cdr p1))
 	    (setq m (- m 1))
