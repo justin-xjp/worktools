@@ -951,5 +951,6 @@ local_project/
 
 *._ls
 *.prj
-
+*.fas
+*.ob
 
