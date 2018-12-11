@@ -257,3 +257,88 @@
 	(command)
 	(setvar "modemacro" "")		;清空状态
 )
+;;;主函数C:sph3s
+;;;将图中的网架球节点编号与NODEid对应起来，经修改后可以给3D3S球节点设计导入。
+(defun c:sph3s()
+;;;状态初始化
+	(setvar "modemacro" "=网架球节点与nodeID=")	;状态文字
+	(command "_.undo" "m")		;设置返回点
+	(command)
+	(setvar "cmdecho" 0)			;显示状态开关
+	(setq oldcolor (getvar "cecolor"))	;当前颜色状态保存
+	(setvar "CECOLOR" "red")		;设置工作颜色
+	(setq oldpltp (getvar "PLINETYPE"))	;PLINETYPE指定是否使用优化的二维多段线。系统变量
+	(setvar "PLINETYPE" 1)		;打开旧图形时不转换其中的多段线；PLINE 创建优化的多段线 
+	(setq oldosmode (getvar "osmode"))
+	(setvar "osmode" 0)
+;;; var:
+	(setq ssl (ssadd))
+	(setq ssmax 0)
+	(setq Cp1 nil)
+	(setq ttla nil)
+	(setq ttlb nil)
+	(setq nid "")
+	(setq sphtype "")
+	(setq n 0)
+	(setq elname nil)
+	(setq el nil)
+
+;;; 框选所需处理区域，circle进入选择集ssl,判断选择集的合法性
+	(princ "请选择需要处理的球节点")
+	(setq ssl (ssget '((0 . "CIRCLE"))))	
+	(if (/= ssl nil)
+		(progn
+      ;;选择完毕，打开文件并进行导出
+			(setq fil_w (getfiled "请指定保存的文件" "e:\\" "csv" 1))
+			(setq outfile (open fil_w "w"))
+			(setq ssmax (sslength ssl))
+			;;指定基准点，确定框选用向量
+			(command)
+			(print "确定文字与点的关系")
+			(command)
+			(setvar "osmode" 4)
+			(setq basep (getpoint "指定圆心"));basep的Z坐标不一定为0
+			(setvar "osmode" 0)
+			(setq dp1 (getpoint "文字范围的左上点"));feature:后续应改为用rec做矩形块获得。
+			(setq dp2 (getpoint "文字范围的右下点"))
+			(setq dp1 (mapcar '- dp1 basep));能减
+			(setq dp2 (mapcar '- dp2 basep))
+			(getstring "选择结束后请将所有关键字段都至于视野内，ENTER键继续")
+;;;逐个提取ssl中的单元
+			(while (< n ssmax)
+				(progn
+					(setq tti "");;每个单元文字初始化
+					(setq ttj "")
+					(setq layers "0")
+					(setq elname (ssname ssl n))
+					;(princ (entget elname))
+					(setq el (entget elname))
+					(setq Cp1 (cdr (assoc 10 el)))
+					;;抓取文字，
+					(if (/= (setq ttla (ssget "c" (mapcar '+ Cp1 dp1) (mapcar '+ Cp1 dp2) '((-4 . "<AND")(0 . "TEXT")(8	 . "nodeid")(-4 . "AND>")))) nil) (setq nid (cdr (assoc 1 (entget (ssname ttla 0))))) (setq nid "error"))
+					(if (/= (setq ttlb (ssget "c" (mapcar '+ Cp1 dp1) (mapcar '+ Cp1 dp2) '((-4 . "<AND")(0 . "TEXT")(8 . "sphty")(-4 . "AND>")))) nil) (setq sphtype (cdr (assoc 1 (entget (ssname ttlb 0))))) (setq sphtype "error"))
+					;;将内容串起来输出到文件
+					;;"nid，"固定",sphtype[,Cp1]"
+					(if (or (= nid "error") (= sphtype "error"))
+						(write-line (strcat  nid ",固定," sphtype "," (vl-princ-to-string Cp1)) outfile)
+						(write-line (strcat nid ",固定," sphtype ) outfile )
+					)
+					(setq n (1+ n))
+				)
+			)
+
+			(close outfile)			;关闭文件
+		)
+		(princ "选择集为空")
+	)
+	(prin1 '"共输出节点" ssmax)
+	;;;状态恢复
+	(setvar "cecolor" oldcolor)		;恢复初始设置
+	(setvar "PLINETYPE" oldpltp)
+	(setvar "osmode" oldosmode)
+	(command)
+	(command "_.undo" "b")		;回到返回点。经常此句无动作
+	(command)
+	(setvar "modemacro" "")		;清空状态栏
+
+)
