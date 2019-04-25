@@ -31,3 +31,7 @@ autolisp下实现CAD表格导出。代码是从网上百度来的，具体原作
 ### Unittablebuilding
 
 实现从杆件布置图导出对应的杆件与节点关系表，不稳定。
+
+## cmdScripts
+
+目录下是在办公中使用的“批处理”文件。windows嘛，慢慢会换成PS脚本文件的，别着急。
