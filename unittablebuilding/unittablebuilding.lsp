@@ -1,6 +1,6 @@
 ;;;函数用法声明：
 (if (= (type cal) nil)
-  (arxload "geomcal.arx")
+  (arxload "geomcal.crx")
  )
 ;;;内部函数，向量旋转
 (defun un:vecrot (p0 ang0);ang0须是弧度表示，用angle函数得到即可
