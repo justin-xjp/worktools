@@ -1,0 +1,9 @@
+工程名称：{project_name}
+设计单位：{design_unit}
+建筑面积：{area}
+地上层数：{floor_num:.2f}
+地下层数：{underground_num}
+结构类型：{structure_type}
+抗震烈度：{seismic_intensity}
+
+重复内容替换：{area}{underground_num}

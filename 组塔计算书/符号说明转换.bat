@@ -1,0 +1,1 @@
+pandoc.exe -s .\公式中的符号说明.md -o 符号说明.docx

@@ -1,0 +1,49 @@
+1.1.{nz} 当前步骤：塔段{stepNo}
+已组塔顶{topmiaoshu}。
+本阶段最大构件重量：{gjzl}kg，
+1.起吊重力计算：
+G={gjzl}*1.1*9.81={outG:.2f} kN
+2.攀根绳的静张力：
+1）当抱杆为竖直状态时，计算得
+β=arctan(({TopB:.2f}/2+0.5)/{L1})={outBeta0:.2f}°
+ω={outOmiga:.2f}°
+F={outG:.2f}*sin({outBeta0:.2f})/cos({outOmiga:.2f}+{outBeta0:.2f})={outF0:.2f}kN
+2）当抱杆向构件倾斜B/3时，
+β=arctan(({TopB:.2f}/2-{B:.2f}/3+0.5)/(√({L}^2-({B:.2f}/3)^2)-{L1}))= {outBeta:.2f}°
+F= {outG:.2f}*sin{outBeta:.2f}/cos({outOmiga:.2f}+{outBeta:.2f})= {outF:.2f} kN
+3.起吊绳的静张力：
+1）抱杆为竖直状态时，
+T={outG:.2f}*cos{outOmiga:.2f}/cos({outOmiga:.2f}+{outBeta0:.2f})={outT0:.2f} kN
+2）抱杆向构件倾斜B/3时，
+T= {outG:.2f}*cos{outOmiga:.2f}/cos({outOmiga:.2f}+{outBeta:.2f})={outT:.2f} kN
+4.拉线的静张力：
+1）抱杆竖直时，
+α=arctan(2*{L1}/{B:.2f})={outAlpha0:.2f}°
+Ph=sin({outBeta0:.2f})/cos({outAlpha0:.2f})*{outT0:.2f}={outPh0:.2f}kN
+θ=arctan({B:.2f}/(2*({L1}^2+({B:.2f}/2)^2)^.5)={outTheta_0:.2f}°
+P1={outPh0:.2f}/(2*cos{outTheta_0:.2f})={outP10:.2f} kN
+2）抱杆倾斜B/3时，
+α=arctan(1.2*{L1}/{B:.2f})={outAlpha:.2f}°
+δ=arcsin({B:.2f}/(3*{L}))={outDelta:.2f}°
+Ph=sin({outBeta:.2f}+{outDelta:.2f})/cos({outAlpha:.2f}-{outDelta:.2f})*{outT:.2f}=  {outPh:.2f} kN
+θ=arctan({B:.2f}/(2*({L1}^2+({B:.2f}*5/6)^2)^.5)={outTheta:.2f}°
+P1= {outPh:.2f}/(2*cos{outTheta:.2f})={outP1:.2f} kN
+5.牵引绳 Tq=η*T
+1）抱杆竖直时，
+Tq={Tq_0:.2f} kN
+2）抱杆倾斜B/3时，
+Tq={Tq:.2f} kN
+6.抱杆轴向压力：
+1）抱杆竖直状态 
+N=cos({outBeta0:.2f}-{outAlpha0:.2f})/cos{outAlpha0:.2f}*{outT0:.2f}+{Tq_0:.2f}={outN0:.2f} kN
+2）抱杆倾斜状态
+N=cos({outBeta:.2f}-{outAlpha:.2f})/cos({outAlpha:.2f}-{outDelta:.2f})*{outT:.2f}+{Tq:.2f}={outN:.2f} kN
+7.承托绳的静张力，按竖直状态计算：
+1）抱杆竖直状态
+Φ=arctan({B:.2f}/(2*{L2}))={outPhi:.2f}°
+ΦL=arctan({B:.2f}/(2*√({L2}^2+{B:.2f}^2/4)))={outPhiL:.2f}°
+S1=({outN0:.2f}+{outG0:.2f})*sin{outPhi:.2f}/sin(2*{outPhi:.2f})= {outS10:.2f} kN
+S=1.2*{outS10:.2f}/(2cos{outPhiL:.2f})= {outS0:.2f} kN
+2）抱杆倾斜状态
+S1=({outN:.2f}+{outG0:.2f})sin({outPhi:.2f}+{outDelta:.2f})/sin(2*{outPhi:.2f})= {outS1:.2f} kN
+S=1.2*{outS1:.2f}/(2cos{outPhiL:.2f})= {outS:.2f} kN

@@ -1,0 +1,45 @@
+;;;===================== 主程序==============================
+(print "多段线节点序号标识")
+(print "PLnum")
+
+(defun C:plnum ()
+;;;选择一条PLINE，或是指定标注比例，默认1/1
+  ;;(setq outScale 1)
+  (setq ss1 (ssget '((0 . "LWPOLYLINE"))))
+  (setq ent (entget (ssname ss1 0)))
+  (setq pts nil)
+  (setq plpdelta nil)
+  (setq plengDis nil)
+
+  (setq i 0)
+  (repeat (length ent)
+    (if	(= (car (nth i ent)) 10)
+      (setq pts (append pts (list (cdr (nth i ent)))))
+    )
+    (setq i (1+ i))
+  )
+  
+
+;;;依次在多段线的点上输出信息。
+  (setq outScale (getint "请输入比例（1、2、4）<1>:"))
+  (if (not outScale)(setq outScale 1))
+  (setq i 0)
+  ;;默认文字和相对点位
+  (setq tH (* outScale 3))
+  ;; (setq noteLinelength (* outScale 7.5))
+  ;; (setq lpt (list noteLinelength noteLinelength))
+  ;; (setq mpt (list (* 2 noteLinelength) noteLinelength))
+  ;; (setq rpt (list (* 3 noteLinelength) noteLinelength))
+  (repeat (length pts)
+	(setq cpt (nth i pts))
+	;; (setq clpt (mapcar '+ cpt lpt))
+	;; (setq crpt (mapcar '+ cpt rpt))
+	;; (setq cmpt (mapcar '+ cpt mpt))
+	(setq infotext (+ i 1))
+	;; (command "_.pline" cpt clpt crpt )
+	;; (command)	
+	(command "_text" "J" "TC" cpt tH "0" infotext)
+	(command)
+	(setq i (1+ i))
+  )
+)
